@@ -12,6 +12,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from chat_record_analyzer.agent import analyze_session
+from chat_record_analyzer.enhancements import explain_decision, extract_semantic_signals
 from chat_record_analyzer.evaluate import DEFAULT_MANIFEST_PATH, evaluate_manifest, render_markdown, result_rows
 from chat_record_analyzer.forms import FormCatalog
 from chat_record_analyzer.models import ChatMessage, Decision
@@ -93,7 +94,7 @@ def _render_single_analysis(
         for message in visible_messages:
             _render_chat_message(message, form_catalog)
     with right:
-        _render_decision_panel(decision, form_catalog, show_json)
+        _render_decision_panel(decision, visible_messages, form_catalog, draft_client, show_json)
 
 
 def _render_chat_replay(
@@ -123,7 +124,7 @@ def _render_chat_replay(
     with right:
         st.subheader(f"AI 决策｜chatseq {selected_seq}")
         _render_timeline_status(timeline, selected_seq)
-        _render_decision_panel(current.decision, form_catalog, show_json)
+        _render_decision_panel(current.decision, messages_until(messages, selected_seq), form_catalog, draft_client, show_json)
 
 
 def _render_batch_report() -> None:
@@ -167,7 +168,13 @@ def _render_chat_message(message: ChatMessage, form_catalog: FormCatalog) -> Non
             st.write(message.content)
 
 
-def _render_decision_panel(decision: Decision, form_catalog: FormCatalog, show_json: bool) -> None:
+def _render_decision_panel(
+    decision: Decision,
+    messages: list[ChatMessage],
+    form_catalog: FormCatalog,
+    draft_client,
+    show_json: bool,
+) -> None:
     st.metric("是否建议发送", "是" if decision.should_send else "否", f"confidence {decision.confidence:.2f}")
     st.write(f"动作类型：`{decision.action_type}`")
     st.write(f"判断依据：{decision.rationale}")
@@ -178,6 +185,12 @@ def _render_decision_panel(decision: Decision, form_catalog: FormCatalog, show_j
     candidate_card = _candidate_card(decision, form_catalog)
     if candidate_card:
         _render_form_card(candidate_card)
+
+    st.subheader("业务解释")
+    st.write(explain_decision(messages, decision, draft_client))
+
+    st.subheader("语义信号")
+    st.json(extract_semantic_signals(messages, draft_client).to_dict())
 
     st.subheader("Rubric")
     st.json(decision.rubric_scores.to_dict())

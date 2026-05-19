@@ -9,6 +9,10 @@ POC 采用轻量混合架构：
 - Decision Engine：用规则提取商机、需求、能力、资料意愿和已发送动作。
 - Form Catalog：从配置文件选择匹配表单。
 - Rubric Evaluator：对触发时机、证据、价值、打扰风险、表单匹配打分。
+- Env Loader：加载 `.env`、环境变量和 Streamlit Secrets，真实 key 不进入代码库。
+- LLM Enhancement Layer：在规则决策之外增强话术、语义信号和业务解释。
+- Prompt Contracts：LLM prompt 必须有明确输入、输出和 fallback，不允许模型自由生成真实表单 URL。
+- Fallback Policy：DeepSeek 失败、超时或输出不可解析时，保留规则决策和 Mock 结果。
 - Streamlit UI：展示聊天回放、结构化决策和评分。
 
 ## Stages
@@ -56,3 +60,19 @@ POC 采用轻量混合架构：
 - 群聊回放按每个 `chatseq` 生成 prefix 决策时间线。
 - 表单卡片预览基于 `data/forms.json` 和会话存档 card。
 - DeepSeek 开关通过 `DEEPSEEK_API_KEY` 等环境变量启用，无 key 自动回退 Mock。
+
+### Stage 4: LLM 受控增强
+
+最多 5 个 tranches：
+
+1. `.env` 支持与 DeepSeek 连通性验证。
+2. 话术自然化增强，保留规则 fallback。
+3. 复杂语义理解辅助，输出结构化 semantic signals。
+4. 复盘解释增强，把证据、规则和 LLM 解读合成业务可读说明。
+5. LLM 评估样本、回归测试和 PM 状态更新。
+
+Stage 4 约束：
+
+- LLM 可增强表达和解释，但不越权决定真实表单 URL。
+- 核心发送决策仍需通过规则、表单 catalog 和批量评估约束。
+- 所有 LLM 能力必须能在无 key 或调用失败时稳定回退。

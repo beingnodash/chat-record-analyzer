@@ -53,14 +53,14 @@ class RuntimeTest(unittest.TestCase):
         self.assertFalse(selection.using_fallback)
 
     def test_deepseek_without_key_falls_back_to_mock(self):
-        with patch.dict("os.environ", {}, clear=True):
+        with patch.dict("os.environ", {"CHAT_RECORD_ANALYZER_SKIP_DOTENV": "1"}, clear=True):
             selection = select_draft_client("deepseek")
         self.assertEqual(selection.requested_mode, "deepseek")
         self.assertEqual(selection.active_mode, "mock")
         self.assertTrue(selection.using_fallback)
 
     def test_deepseek_with_key_uses_deepseek_client(self):
-        with patch.dict("os.environ", {"DEEPSEEK_API_KEY": "test-key"}, clear=True):
+        with patch.dict("os.environ", {"DEEPSEEK_API_KEY": "test-key", "CHAT_RECORD_ANALYZER_SKIP_DOTENV": "1"}, clear=True):
             selection = select_draft_client("deepseek")
         self.assertEqual(selection.active_mode, "deepseek")
         self.assertFalse(selection.using_fallback)

@@ -7,6 +7,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Protocol
 
+from .config import load_environment
+
 
 class DraftClient(Protocol):
     def polish(self, prompt: str, fallback: str) -> str:
@@ -16,6 +18,12 @@ class DraftClient(Protocol):
 @dataclass(frozen=True)
 class MockDraftClient:
     def polish(self, prompt: str, fallback: str) -> str:
+        return fallback
+
+    def complete_text(self, prompt: str, fallback: str) -> str:
+        return fallback
+
+    def complete_json(self, prompt: str, fallback: dict) -> dict:
         return fallback
 
 
@@ -28,6 +36,7 @@ class DeepSeekDraftClient:
 
     @classmethod
     def from_env(cls) -> "DeepSeekDraftClient | None":
+        load_environment()
         api_key = os.getenv("DEEPSEEK_API_KEY")
         if not api_key:
             return None
@@ -38,6 +47,9 @@ class DeepSeekDraftClient:
         )
 
     def polish(self, prompt: str, fallback: str) -> str:
+        return self.complete_text(prompt, fallback)
+
+    def complete_text(self, prompt: str, fallback: str) -> str:
         payload = {
             "model": self.model,
             "messages": [
@@ -49,6 +61,35 @@ class DeepSeekDraftClient:
             ],
             "temperature": 0.2,
         }
+        data = self._post(payload)
+        if data is None:
+            return fallback
+        return data.get("choices", [{}])[0].get("message", {}).get("content", fallback).strip() or fallback
+
+    def complete_json(self, prompt: str, fallback: dict) -> dict:
+        payload = {
+            "model": self.model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "你是企业微信外部群业务分析助手，只返回合法 JSON，不要输出 Markdown。",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": 0.1,
+            "response_format": {"type": "json_object"},
+        }
+        data = self._post(payload)
+        if data is None:
+            return fallback
+        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        try:
+            parsed = json.loads(content)
+        except json.JSONDecodeError:
+            return fallback
+        return parsed if isinstance(parsed, dict) else fallback
+
+    def _post(self, payload: dict) -> dict | None:
         request = urllib.request.Request(
             self.base_url,
             data=json.dumps(payload).encode("utf-8"),
@@ -60,7 +101,6 @@ class DeepSeekDraftClient:
         )
         try:
             with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
-                data = json.loads(response.read().decode("utf-8"))
+                return json.loads(response.read().decode("utf-8"))
         except (urllib.error.URLError, TimeoutError, KeyError, json.JSONDecodeError):
-            return fallback
-        return data.get("choices", [{}])[0].get("message", {}).get("content", fallback).strip() or fallback
+            return None

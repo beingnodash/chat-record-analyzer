@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from .agent import analyze_session
+from .config import load_environment
 from .forms import FormCatalog
 from .models import ActionType, Decision
 from .parser import load_messages, messages_until
@@ -268,6 +269,7 @@ def _rate(numerator: int, denominator: int) -> float:
 
 
 def main() -> None:
+    load_environment()
     parser = argparse.ArgumentParser(description="Run batch stability evaluation for chat intervention decisions.")
     parser.add_argument("manifest", nargs="?", default=str(DEFAULT_MANIFEST_PATH), help="Path to evaluation manifest JSON")
     parser.add_argument("--format", choices=["json", "markdown"], default="json")
