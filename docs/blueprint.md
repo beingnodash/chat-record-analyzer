@@ -49,3 +49,10 @@ POC 采用轻量混合架构：
 3. 表单卡片样式预览。
 4. DeepSeek API 真实调用开关。
 5. 演示部署配置。
+
+当前 Stage 3 baseline：
+
+- Streamlit 三视图：单点分析、群聊回放、批量稳定性报告。
+- 群聊回放按每个 `chatseq` 生成 prefix 决策时间线。
+- 表单卡片预览基于 `data/forms.json` 和会话存档 card。
+- DeepSeek 开关通过 `DEEPSEEK_API_KEY` 等环境变量启用，无 key 自动回退 Mock。

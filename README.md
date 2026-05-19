@@ -7,7 +7,7 @@
 - 介入话术是什么
 - 是否应该选择并发送配置好的表单 URL
 
-第一版默认离线可运行，使用规则与 Mock LLM 风格的可解释决策。配置 `DEEPSEEK_API_KEY` 后，可在后续扩展中接入 DeepSeek OpenAI-compatible API。
+默认离线可运行，使用规则与 Mock LLM 风格的可解释决策。配置 `DEEPSEEK_API_KEY` 后，可在 Streamlit 中显式切换到 DeepSeek OpenAI-compatible API 润色话术。
 
 ## 快速开始
 
@@ -27,6 +27,24 @@ PYTHONPATH=src python3 -m chat_record_analyzer data/samples/thailand_port_lighti
 PYTHONPATH=src python3 -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
 ```
 
+## Streamlit Cloud
+
+部署入口：
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+必需依赖见 `requirements.txt`。默认不需要任何 secrets；如需启用 DeepSeek，在 Streamlit Cloud Secrets 中配置：
+
+```toml
+DEEPSEEK_API_KEY = "..."
+DEEPSEEK_MODEL = "deepseek-chat"
+DEEPSEEK_BASE_URL = "https://api.deepseek.com/chat/completions"
+```
+
+本地可参考 `.streamlit/secrets.toml.example`，不要提交真实 key。
+
 ## Canonical 输入格式
 
 POC 使用 JSONL 作为 append-only 存档文本。每行是一条消息，包含：
@@ -38,6 +56,7 @@ POC 使用 JSONL 作为 append-only 存档文本。每行是一条消息，包�
 ## 目录
 
 - `app/streamlit_app.py`：业务演示 UI
+- `src/chat_record_analyzer/replay.py`：低保真群聊回放 view-model
 - `src/chat_record_analyzer/`：解析、决策、表单选择、rubric 评估、CLI
 - `data/forms.json`：表单 catalog
 - `data/samples/`：多主题样本

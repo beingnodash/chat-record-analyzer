@@ -41,11 +41,12 @@
 - Streamlit 批量稳定性报告
 - CLI/模块化批量评估入口
 
-下一阶段重点是 Stage 3：
+当前 Stage 3 baseline 已建立：
 
-- 低保真群聊回放
-- 每个 `chatseq` 的决策时间线
-- 表单卡片样式预览
+- Streamlit 三视图：单点分析、群聊回放、批量稳定性报告
+- 每个 `chatseq` 的 prefix 决策时间线
+- 表单卡片预览
+- DeepSeek/Mock 话术生成开关，默认 Mock
 
 ## 工程约束
 
@@ -53,6 +54,7 @@
 - 不确定时默认不介入，避免 bot 过度打扰。
 - 表单来自 `data/forms.json`，不要让模型自由生成真实表单 URL。
 - 输入样本优先使用 append-only JSONL，每行一条带元数据消息。
+- 不提交真实 API key；DeepSeek 只通过环境变量或 Streamlit Secrets 启用。
 - 新功能应优先补测试，再实现。
 - 修改决策逻辑时，必须确认泰国港口照明 golden case 仍通过。
 

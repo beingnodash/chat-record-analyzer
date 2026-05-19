@@ -28,3 +28,15 @@ class FormCatalog:
             scored.append((score, form))
         scored.sort(key=lambda item: item[0], reverse=True)
         return scored[0][1]
+
+    def by_id(self, form_id: str) -> FormDefinition | None:
+        for form in self.forms:
+            if form.form_id == form_id:
+                return form
+        return None
+
+    def by_url(self, url: str) -> FormDefinition | None:
+        for form in self.forms:
+            if form.url == url:
+                return form
+        return None
