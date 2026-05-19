@@ -1,0 +1,23 @@
+[
+  {
+    "form_id": "thailand-port-lighting",
+    "title": "泰国港口项目｜照明解决方案信息提交",
+    "url": "https://example.com/form/thailand-port-lighting",
+    "description": "请填写企业信息、核心产品、海外案例、技术参数及可支持范围。",
+    "keywords": ["港口", "照明", "高杆灯", "堆场", "智能配电", "远程运维", "节能"]
+  },
+  {
+    "form_id": "overseas-infra-solution",
+    "title": "海外基建项目｜方案与案例信息提交",
+    "url": "https://example.com/form/overseas-infra-solution",
+    "description": "请提交企业能力、项目案例、产品或服务范围、交付经验及联系人。",
+    "keywords": ["海外", "基建", "项目", "方案", "案例", "总包", "分包"]
+  },
+  {
+    "form_id": "port-equipment-supplier",
+    "title": "港口配套设备｜供应能力信息提交",
+    "url": "https://example.com/form/port-equipment-supplier",
+    "description": "请提交港口设备品类、技术参数、海外认证、交付周期和案例。",
+    "keywords": ["港口", "设备", "堆场", "岸桥", "配套", "供应"]
+  }
+]
