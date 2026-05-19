@@ -1,0 +1,55 @@
+{
+  "case_id": "llm_uae_vendor_wait",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:06:29.900904+00:00",
+  "sample_path": "data/samples/uae_desalination_power.jsonl",
+  "chatseq": 3,
+  "input_summary": {
+    "message_count": 3,
+    "last_message": {
+      "session_id": "wxext-uae-desalination-001",
+      "chatseq": 3,
+      "timestamp": "2026-05-20T16:06:00+08:00",
+      "user_id": "external-qin",
+      "display_name": "秦总",
+      "role": "external_vendor",
+      "org": "海工水务科技有限公司总经理",
+      "message_type": "text",
+      "content": "先关注一下，等边界明确后我们再看是否匹配。"
+    }
+  },
+  "fallback_message": "",
+  "polished_message": "",
+  "decision": {
+    "should_send": false,
+    "action_type": "none",
+    "confidence": 0.72,
+    "rubric_scores": {
+      "evidence_strength": 1,
+      "timing": 5,
+      "usefulness": 3,
+      "non_intrusion": 5,
+      "form_fit": 5,
+      "overall": 3.8
+    },
+    "rationale": "未同时看到明确项目机会、供应方能力表达和可采集的信息缺口。",
+    "evidence_chatseqs": [],
+    "draft_message": "",
+    "form_id": null,
+    "form_url": null
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": false,
+    "has_timing_signal": false,
+    "summary": "阿联酋海水淡化厂二期项目存在机会，但边界待业主确认，工艺与电力配套可能分开讨论，总包会后续明确，当前信息不完整，供应商观望中。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3
+    ],
+    "source": "llm"
+  },
+  "explanation": "好的，目前这条资讯对应的项目还在业主确认边界阶段，没有同时看到明确的项目机会、供应方能力表达与可采集的信息缺口，所以我们暂时不介入推送表单或跟进行动，避免打扰。先继续观察，后续有实质进展再判断是否介入。"
+}

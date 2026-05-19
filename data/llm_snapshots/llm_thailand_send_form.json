@@ -1,0 +1,62 @@
+{
+  "case_id": "llm_thailand_send_form",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:05:41.396714+00:00",
+  "sample_path": "data/samples/thailand_port_lighting.jsonl",
+  "chatseq": 6,
+  "input_summary": {
+    "message_count": 6,
+    "last_message": {
+      "session_id": "wxext-thailand-port-001",
+      "chatseq": 6,
+      "timestamp": "2026-05-20T09:31:00+08:00",
+      "user_id": "external-li",
+      "display_name": "李总",
+      "role": "external_vendor",
+      "org": "南京智能照明股份有限公司总经理",
+      "message_type": "text",
+      "content": "好的，这个太好了。我们近期刚更新了一版海外港口照明方案，包含高杆灯、智能配电、远程运维和节能测算，我整理一下发给你们。"
+    }
+  },
+  "fallback_message": "李总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n【泰国港口项目｜照明解决方案信息提交】\n请填写企业信息、核心产品、海外案例、技术参数及可支持范围。\nhttps://example.com/form/thailand-port-lighting",
+  "polished_message": "感谢您的同步。为方便后续整理与跟进，请您通过以下表单提交信息：\n\n【泰国港口项目｜照明解决方案信息提交】\n请填写企业信息、核心产品、海外案例、技术参数及可支持范围。\nhttps://example.com/form/thailand-port-lighting",
+  "decision": {
+    "should_send": true,
+    "action_type": "send_form",
+    "confidence": 0.9,
+    "rubric_scores": {
+      "evidence_strength": 4,
+      "timing": 4,
+      "usefulness": 5,
+      "non_intrusion": 4,
+      "form_fit": 5,
+      "overall": 4.4
+    },
+    "rationale": "外部供应方已明确有相关方案、产品能力和提交资料意愿，适合选择配置表单采集结构化信息。",
+    "evidence_chatseqs": [
+      1,
+      6,
+      5
+    ],
+    "draft_message": "感谢您的同步。为方便后续整理与跟进，请您通过以下表单提交信息：\n\n【泰国港口项目｜照明解决方案信息提交】\n请填写企业信息、核心产品、海外案例、技术参数及可支持范围。\nhttps://example.com/form/thailand-port-lighting",
+    "form_id": "thailand-port-lighting",
+    "form_url": "https://example.com/form/thailand-port-lighting"
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": true,
+    "has_timing_signal": true,
+    "summary": "泰国东部港区扩建工程中，照明部分是否单独拆包尚未明确，预计7月总包启动会讨论，供应商已准备提供方案。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "source": "llm"
+  },
+  "explanation": "感谢同步。根据群内对话，李总已确认近期更新了港口照明方案并愿意提交资料（对应“我整理一下发给你们”），证据充分且时机合适。AI决定主动提供表单，是为了高效收集结构化信息，方便后续精准跟进项目拆包与对接进展，避免信息遗漏。此判断基于您明确的提交意愿与方案成熟度，不涉及其他承诺或链接。"
+}

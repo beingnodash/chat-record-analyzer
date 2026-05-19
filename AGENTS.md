@@ -48,11 +48,13 @@
 - 表单卡片预览
 - DeepSeek/Mock 话术生成开关，默认 Mock
 
-当前 Stage 4 目标：
+当前 Stage 4 baseline 已建立：
 
 - 使用 `.env` 支持本地 DeepSeek 配置
 - 让 LLM 受控增强话术、语义理解和复盘解释
 - 保持规则决策、表单 catalog 和批量评估作为安全边界
+- 通过固定 DeepSeek 快照和人工 rubric 复盘 LLM 增强质量
+- Streamlit 已有 LLM 增强复盘视图
 
 ## 工程约束
 
@@ -72,5 +74,6 @@
 PYTHONPATH=src python3 -m unittest discover -s tests
 PYTHONPATH=src python3 -m chat_record_analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6
 PYTHONPATH=src python3 -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
+PYTHONPATH=src python3 -m chat_record_analyzer.llm_evaluate data/llm_evaluation_cases.json --source snapshots --format markdown
 uv run streamlit run app/streamlit_app.py
 ```

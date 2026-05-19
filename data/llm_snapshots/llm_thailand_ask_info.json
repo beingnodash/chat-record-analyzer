@@ -1,0 +1,60 @@
+{
+  "case_id": "llm_thailand_ask_info",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:05:30.842275+00:00",
+  "sample_path": "data/samples/thailand_port_lighting.jsonl",
+  "chatseq": 4,
+  "input_summary": {
+    "message_count": 4,
+    "last_message": {
+      "session_id": "wxext-thailand-port-001",
+      "chatseq": 4,
+      "timestamp": "2026-05-20T09:27:00+08:00",
+      "user_id": "external-zhang",
+      "display_name": "张总",
+      "role": "external_owner",
+      "org": "中交建海外业务负责人",
+      "message_type": "text",
+      "content": "李总您好。目前还没最终明确，照明部分可能会跟港区电气系统一起统筹考虑。估计要到7月份总包启动会上，业主和总包单位一起讨论后才会更清楚。"
+    }
+  },
+  "fallback_message": "李总，您这边方便的话，可以先把相关解决方案、产品清单和海外项目案例发到群里或提交给我们。我们可以先帮您整理需求点，后续持续跟进项目拆包和对接进展。",
+  "polished_message": "李总，方便的话您可以把解决方案、产品清单和海外案例发到群里，或者直接发给我们。我们先梳理一下需求，后续再跟进项目拆包和对接进展。",
+  "decision": {
+    "should_send": true,
+    "action_type": "ask_for_info",
+    "confidence": 0.82,
+    "rubric_scores": {
+      "evidence_strength": 4,
+      "timing": 4,
+      "usefulness": 4,
+      "non_intrusion": 4,
+      "form_fit": 5,
+      "overall": 4.2
+    },
+    "rationale": "项目方透露后续时间点和不确定事项，供应方已有明确关注点，此时适合轻量引导其补充方案资料。",
+    "evidence_chatseqs": [
+      1,
+      3,
+      4
+    ],
+    "draft_message": "李总，方便的话您可以把解决方案、产品清单和海外案例发到群里，或者直接发给我们。我们先梳理一下需求，后续再跟进项目拆包和对接进展。",
+    "form_id": null,
+    "form_url": null
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": true,
+    "has_timing_signal": true,
+    "summary": "泰国东部港区扩建项目有照明工程机会，张总确认其团队参与部分标段，李总关注照明部分但尚未明确是否单独拆包，总包启动会预计7月召开，届时信息将更清晰。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "source": "llm"
+  },
+  "explanation": "王总、李总，根据群里最新沟通，AI助手注意到李总对港区照明工程是否单独拆包很关注，张总也提到7月总包启动会才会明确。这个时间点适合提前准备方案资料，所以我们引导李总先补充产品清单和案例，方便后续快速对接。没有推表单或承诺，只是基于现有信息做轻量提醒。"
+}

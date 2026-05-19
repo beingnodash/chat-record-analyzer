@@ -1,0 +1,62 @@
+{
+  "case_id": "llm_egypt_port_form",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:06:38.484373+00:00",
+  "sample_path": "data/samples/egypt_port_equipment.jsonl",
+  "chatseq": 6,
+  "input_summary": {
+    "message_count": 6,
+    "last_message": {
+      "session_id": "wxext-egypt-port-001",
+      "chatseq": 6,
+      "timestamp": "2026-05-21T09:13:00+08:00",
+      "user_id": "external-peng",
+      "display_name": "彭总",
+      "role": "external_vendor",
+      "org": "港机装备股份有限公司总经理",
+      "message_type": "text",
+      "content": "可以，我们整理设备清单、岸桥配套参数、堆场案例和认证资料，今天提交给你们。"
+    }
+  },
+  "fallback_message": "彭总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n【港口配套设备｜供应能力信息提交】\n请提交港口设备品类、技术参数、海外认证、交付周期和案例。\nhttps://example.com/form/port-equipment-supplier",
+  "polished_message": "彭总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n【港口配套设备｜供应能力信息提交】\n请提交港口设备品类、技术参数、海外认证、交付周期和案例。\nhttps://example.com/form/port-equipment-supplier",
+  "decision": {
+    "should_send": true,
+    "action_type": "send_form",
+    "confidence": 0.9,
+    "rubric_scores": {
+      "evidence_strength": 4,
+      "timing": 4,
+      "usefulness": 5,
+      "non_intrusion": 4,
+      "form_fit": 5,
+      "overall": 4.4
+    },
+    "rationale": "外部供应方已明确有相关方案、产品能力和提交资料意愿，适合选择配置表单采集结构化信息。",
+    "evidence_chatseqs": [
+      1,
+      6,
+      5
+    ],
+    "draft_message": "彭总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n【港口配套设备｜供应能力信息提交】\n请提交港口设备品类、技术参数、海外认证、交付周期和案例。\nhttps://example.com/form/port-equipment-supplier",
+    "form_id": "port-equipment-supplier",
+    "form_url": "https://example.com/form/port-equipment-supplier"
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": true,
+    "has_timing_signal": false,
+    "summary": "埃及港口扩建项目有设备供应机会，业主（邓总）正在整理供应商和案例，供应商（彭总）承诺提交资料，但设备范围和招标细节尚需明确，目前处于信息收集阶段。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "source": "llm"
+  },
+  "explanation": "我们判断当前主动发送表单是合适的，因为上游业主已启动设备调研（第1条），而供应方彭总在对话中明确表示可以供应岸桥配套和堆场电气系统，并有海外案例和认证（第3条），之后也确认愿意立即整理设备清单、参数、案例和认证资料并提交（第5、6条）。这意味着对方有明确方案和能力、有主动提交意愿，且当前需求清晰，适合用表单一次性采集结构化信息，避免后续反复追问，也能帮助业主方高效归整。因此AI决定介入并推送采集表单，而非继续文字询问。"
+}

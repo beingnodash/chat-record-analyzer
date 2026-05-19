@@ -1,0 +1,61 @@
+{
+  "case_id": "llm_morocco_multi_vendor",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:06:04.260221+00:00",
+  "sample_path": "data/samples/morocco_industrial_park.jsonl",
+  "chatseq": 5,
+  "input_summary": {
+    "message_count": 5,
+    "last_message": {
+      "session_id": "wxext-morocco-park-001",
+      "chatseq": 5,
+      "timestamp": "2026-05-21T11:08:00+08:00",
+      "user_id": "external-guo",
+      "display_name": "郭总",
+      "role": "external_owner",
+      "org": "央企园区开发负责人",
+      "message_type": "text",
+      "content": "两个方向都有可能，业主下周会先讨论园区运营和物流系统，电力部分可能再往后一轮。"
+    }
+  },
+  "fallback_message": "吴总，您这边方便的话，可以先把相关解决方案、产品清单和海外项目案例发到群里或提交给我们。我们可以先帮您整理需求点，后续持续跟进项目拆包和对接进展。",
+  "polished_message": "吴总，方便的话您可以先把解决方案、产品清单和海外案例发到群里或直接提交给我们。我们会先帮您梳理需求，后续持续跟进项目拆包和对接进展。",
+  "decision": {
+    "should_send": true,
+    "action_type": "ask_for_info",
+    "confidence": 0.82,
+    "rubric_scores": {
+      "evidence_strength": 4,
+      "timing": 4,
+      "usefulness": 4,
+      "non_intrusion": 4,
+      "form_fit": 5,
+      "overall": 4.2
+    },
+    "rationale": "项目方透露后续时间点和不确定事项，供应方已有明确关注点，此时适合轻量引导其补充方案资料。",
+    "evidence_chatseqs": [
+      1,
+      4,
+      5
+    ],
+    "draft_message": "吴总，方便的话您可以先把解决方案、产品清单和海外案例发到群里或直接提交给我们。我们会先帮您梳理需求，后续持续跟进项目拆包和对接进展。",
+    "form_id": null,
+    "form_url": null
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": false,
+    "has_vendor_readiness": true,
+    "has_timing_signal": true,
+    "summary": "摩洛哥新能源产业园项目推进中，业主郭总表示后续将分电力、物流和园区运营专题讨论。供应商林总和吴总已表示可提供相关方案，业主明确下周先讨论园区运营和物流系统。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "source": "llm"
+  },
+  "explanation": "针对群内对话，AI建议介入的原因主要有两点：一是项目方（郭总在第5条消息）明确提到“电力部分可能再往后一轮”，说明时间线存在不确定性；二是供应方（吴总在第4条消息）已主动展示海外电力案例，表明有明确对接意愿。此时轻量引导其提交方案资料，既能顺应对方主动态势、补充信息完整性，也不会在时间未定时造成压力。关键依据来自聊天记录第1、4、5条。"
+}

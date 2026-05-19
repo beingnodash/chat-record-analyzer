@@ -17,6 +17,7 @@ uv run python -m unittest discover -s tests
 uv run chat-record-analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6
 uv run chat-record-analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6 --draft-mode deepseek
 uv run python -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
+uv run python -m chat_record_analyzer.llm_evaluate data/llm_evaluation_cases.json --source snapshots --format markdown
 uv run streamlit run app/streamlit_app.py
 ```
 
@@ -26,6 +27,7 @@ uv run streamlit run app/streamlit_app.py
 PYTHONPATH=src python3 -m unittest discover -s tests
 PYTHONPATH=src python3 -m chat_record_analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6
 PYTHONPATH=src python3 -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
+PYTHONPATH=src python3 -m chat_record_analyzer.llm_evaluate data/llm_evaluation_cases.json --source snapshots --format markdown
 ```
 
 ## DeepSeek 与 `.env`
@@ -40,6 +42,14 @@ DEEPSEEK_MODEL=deepseek-chat
 `.env` 不会覆盖已经存在的环境变量。Streamlit Cloud 仍建议使用 Secrets。
 
 LLM 在本 POC 中是受控增强层：可以润色话术、辅助输出语义信号和业务解释，但不能绕过表单 catalog，也不能单独决定是否发送。
+
+真实 DeepSeek 输出可以显式刷新为固定快照：
+
+```bash
+PYTHONPATH=src python3 -m chat_record_analyzer.llm_evaluate data/llm_evaluation_cases.json --source deepseek --write-snapshots --format markdown
+```
+
+常规演示和回归默认读取 `data/llm_snapshots/`，因此没有 API key 时也能复盘 LLM 增强质量。
 
 ## Streamlit Cloud
 
@@ -72,9 +82,11 @@ POC 使用 JSONL 作为 append-only 存档文本。每行是一条消息，包�
 - `app/streamlit_app.py`：业务演示 UI
 - `src/chat_record_analyzer/replay.py`：低保真群聊回放 view-model
 - `src/chat_record_analyzer/enhancements.py`：LLM 受控增强能力
+- `src/chat_record_analyzer/llm_evaluate.py`：LLM 增强快照评估
 - `src/chat_record_analyzer/`：解析、决策、表单选择、rubric 评估、CLI
 - `data/forms.json`：表单 catalog
 - `data/samples/`：多主题样本
 - `data/evaluation_cases.json`：批量评估 manifest
+- `data/llm_evaluation_cases.json` 和 `data/llm_snapshots/`：LLM 增强评估集与固定快照
 - `docs/`：Concepts、PRD、Blueprint、Implementation Stages
 - `tests/`：TDD 风格核心回归测试

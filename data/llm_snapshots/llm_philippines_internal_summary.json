@@ -1,0 +1,54 @@
+{
+  "case_id": "llm_philippines_internal_summary",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:06:43.790763+00:00",
+  "sample_path": "data/samples/philippines_bridge_monitoring.jsonl",
+  "chatseq": 3,
+  "input_summary": {
+    "message_count": 3,
+    "last_message": {
+      "session_id": "wxext-ph-bridge-001",
+      "chatseq": 3,
+      "timestamp": "2026-05-20T17:06:00+08:00",
+      "user_id": "internal-zhao",
+      "display_name": "赵维",
+      "role": "internal_user",
+      "org": "内部用户",
+      "message_type": "text",
+      "content": "收到，我们先记录这个机会，等有更明确范围再组织对接。"
+    }
+  },
+  "fallback_message": "",
+  "polished_message": "",
+  "decision": {
+    "should_send": false,
+    "action_type": "none",
+    "confidence": 0.72,
+    "rubric_scores": {
+      "evidence_strength": 1,
+      "timing": 5,
+      "usefulness": 3,
+      "non_intrusion": 5,
+      "form_fit": 5,
+      "overall": 3.8
+    },
+    "rationale": "最新消息来自机器人或内部用户，不需要 AI 再次介入。",
+    "evidence_chatseqs": [],
+    "draft_message": "",
+    "form_id": null,
+    "form_url": null
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": false,
+    "has_vendor_readiness": false,
+    "has_timing_signal": false,
+    "summary": "菲律宾跨海大桥项目施工监测系统方案进入比选阶段，徐总表示监测系统尚未拆包，将与主桥施工方案一同讨论。内部已记录机会，等待更明确范围。",
+    "evidence_chatseqs": [
+      1,
+      2
+    ],
+    "source": "llm"
+  },
+  "explanation": "AI本次判断为“不介入”，是因为分析发现群内最新消息来自系统播报和内部同事的确认，业务方已明确表态“等有更明确范围再对接”，信息清晰且无遗漏，AI无需额外介入打扰。判断依据：内部同事已及时回应，且结合业务进展暂不需要补充或追问。"
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": "llm_vietnam_low_signal",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:05:46.077432+00:00",
+  "sample_path": "data/samples/vietnam_port_equipment.jsonl",
+  "chatseq": 2,
+  "input_summary": {
+    "message_count": 2,
+    "last_message": {
+      "session_id": "wxext-vietnam-port-001",
+      "chatseq": 2,
+      "timestamp": "2026-05-20T11:03:00+08:00",
+      "user_id": "external-sun",
+      "display_name": "孙总",
+      "role": "external_vendor",
+      "org": "港机设备供应商",
+      "message_type": "text",
+      "content": "我们先关注一下，后面如果有具体设备清单再看看是否匹配。"
+    }
+  },
+  "fallback_message": "",
+  "polished_message": "",
+  "decision": {
+    "should_send": false,
+    "action_type": "none",
+    "confidence": 0.72,
+    "rubric_scores": {
+      "evidence_strength": 1,
+      "timing": 5,
+      "usefulness": 3,
+      "non_intrusion": 5,
+      "form_fit": 5,
+      "overall": 3.8
+    },
+    "rationale": "未同时看到明确项目机会、供应方能力表达和可采集的信息缺口。",
+    "evidence_chatseqs": [],
+    "draft_message": "",
+    "form_id": null,
+    "form_url": null
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": false,
+    "has_vendor_readiness": false,
+    "has_timing_signal": false,
+    "summary": "越南北部港口自动化堆场改造项目处于前期调研阶段，外部供应商孙总表示关注并等待具体设备清单。",
+    "evidence_chatseqs": [
+      1,
+      2
+    ],
+    "source": "llm"
+  },
+  "explanation": "根据当前对话，孙总仅表示“先关注一下”，未提供具体的项目机会、供应方能力或信息缺口，证据强度不足，因此AI暂不介入判断，留待后续更明确的需求再跟进。"
+}

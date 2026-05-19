@@ -1,0 +1,62 @@
+{
+  "case_id": "llm_malaysia_send_form",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:05:54.356895+00:00",
+  "sample_path": "data/samples/malaysia_solar_storage.jsonl",
+  "chatseq": 6,
+  "input_summary": {
+    "message_count": 6,
+    "last_message": {
+      "session_id": "wxext-malaysia-energy-001",
+      "chatseq": 6,
+      "timestamp": "2026-05-20T13:14:00+08:00",
+      "user_id": "external-he",
+      "display_name": "何总",
+      "role": "external_vendor",
+      "org": "华东储能科技有限公司总经理",
+      "message_type": "text",
+      "content": "可以，我们今天整理一版资料，包含储能柜参数、EMS方案、并网案例和交付周期，晚些提交给你们。"
+    }
+  },
+  "fallback_message": "何总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n【海外能源项目｜电力与储能方案信息提交】\n请提交电力设备、储能系统、并网能力、海外认证、案例和交付周期。\nhttps://example.com/form/power-energy-solution",
+  "polished_message": "何总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n\n【海外能源项目｜电力与储能方案信息提交】\n请提交电力设备、储能系统、并网能力、海外认证、案例和交付周期。\nhttps://example.com/form/power-energy-solution",
+  "decision": {
+    "should_send": true,
+    "action_type": "send_form",
+    "confidence": 0.9,
+    "rubric_scores": {
+      "evidence_strength": 4,
+      "timing": 4,
+      "usefulness": 5,
+      "non_intrusion": 4,
+      "form_fit": 5,
+      "overall": 4.4
+    },
+    "rationale": "外部供应方已明确有相关方案、产品能力和提交资料意愿，适合选择配置表单采集结构化信息。",
+    "evidence_chatseqs": [
+      1,
+      6,
+      5
+    ],
+    "draft_message": "何总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n\n【海外能源项目｜电力与储能方案信息提交】\n请提交电力设备、储能系统、并网能力、海外认证、案例和交付周期。\nhttps://example.com/form/power-energy-solution",
+    "form_id": "power-energy-solution",
+    "form_url": "https://example.com/form/power-energy-solution"
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": true,
+    "has_timing_signal": true,
+    "summary": "马来西亚东海岸工业园光伏储能项目在前期方案讨论阶段，业主未锁定设备，供应商有案例和团队，下月将组织技术讨论会，存在明确项目机会、信息差、供应商准备度和时间信号。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "source": "llm"
+  },
+  "explanation": "根据聊天记录，何总已明确表达有储能方案、产品案例，且愿意提交资料（第3、6段对话）。AI判断此时介入发送表单是合适的，因为可以高效地采集结构化信息，方便后续整理比对，且不会对对话造成打扰。因此，我们建议通过表单方式引导对方提交。"
+}

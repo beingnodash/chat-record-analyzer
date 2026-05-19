@@ -1,0 +1,57 @@
+{
+  "case_id": "llm_turkey_after_form",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:06:12.287170+00:00",
+  "sample_path": "data/samples/turkey_tunnel_ventilation.jsonl",
+  "chatseq": 6,
+  "input_summary": {
+    "message_count": 6,
+    "last_message": {
+      "session_id": "wxext-turkey-tunnel-001",
+      "chatseq": 6,
+      "timestamp": "2026-05-21T14:12:00+08:00",
+      "user_id": "external-ye",
+      "display_name": "叶总",
+      "role": "external_vendor",
+      "org": "隧道机电系统供应商",
+      "message_type": "text",
+      "content": "好的，我们会整理资料。"
+    }
+  },
+  "fallback_message": "",
+  "polished_message": "",
+  "decision": {
+    "should_send": false,
+    "action_type": "none",
+    "confidence": 0.72,
+    "rubric_scores": {
+      "evidence_strength": 1,
+      "timing": 5,
+      "usefulness": 3,
+      "non_intrusion": 5,
+      "form_fit": 5,
+      "overall": 3.8
+    },
+    "rationale": "会话中已经发送过表单，避免重复打扰。",
+    "evidence_chatseqs": [],
+    "draft_message": "",
+    "form_id": null,
+    "form_url": null
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": true,
+    "has_timing_signal": true,
+    "summary": "规则回退识别到项目机会、信息缺口、资料意愿、时间窗口",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "source": "fallback"
+  },
+  "explanation": "好的，当前我们不做额外介入。原因是刚刚已在群内发送过方案收集表单（第5条消息），并已得到叶总“好的，会整理资料”的回应。为避免重复推送造成打扰，这次暂时不发送新消息。"
+}

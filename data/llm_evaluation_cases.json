@@ -1,0 +1,132 @@
+[
+  {
+    "case_id": "llm_thailand_ask_info",
+    "sample_path": "data/samples/thailand_port_lighting.jsonl",
+    "chatseq": 4,
+    "focus": ["polish", "semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true, "has_information_gap": true, "has_timing_signal": true},
+      "message_keywords": ["解决方案"],
+      "explanation_keywords": ["照明"],
+      "forbidden_terms": ["保证中标", "一定成交", "必须提交"]
+    },
+    "tags": ["港口", "轻量引导", "正例"]
+  },
+  {
+    "case_id": "llm_thailand_send_form",
+    "sample_path": "data/samples/thailand_port_lighting.jsonl",
+    "chatseq": 6,
+    "focus": ["polish", "semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true, "has_vendor_readiness": true, "has_timing_signal": true},
+      "message_keywords": ["表单", "照明"],
+      "explanation_keywords": ["李总", "资料"],
+      "forbidden_terms": ["真实链接由模型生成", "绕过表单", "承诺签约"]
+    },
+    "tags": ["港口", "发表单", "正例"]
+  },
+  {
+    "case_id": "llm_vietnam_low_signal",
+    "sample_path": "data/samples/vietnam_port_equipment.jsonl",
+    "chatseq": 2,
+    "focus": ["semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_vendor_readiness": false},
+      "message_keywords": [],
+      "explanation_keywords": ["信息"],
+      "forbidden_terms": ["建议发送表单", "立即填写"]
+    },
+    "tags": ["港口", "信息不足", "负例"]
+  },
+  {
+    "case_id": "llm_malaysia_send_form",
+    "sample_path": "data/samples/malaysia_solar_storage.jsonl",
+    "chatseq": 6,
+    "focus": ["polish", "semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true, "has_vendor_readiness": true},
+      "message_keywords": ["表单", "储能"],
+      "explanation_keywords": ["资料"],
+      "forbidden_terms": ["保证并网", "承诺收益"]
+    },
+    "tags": ["能源", "发表单", "正例"]
+  },
+  {
+    "case_id": "llm_morocco_multi_vendor",
+    "sample_path": "data/samples/morocco_industrial_park.jsonl",
+    "chatseq": 5,
+    "focus": ["polish", "semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true, "has_timing_signal": true},
+      "message_keywords": ["解决方案"],
+      "explanation_keywords": ["项目"],
+      "forbidden_terms": ["只联系一家", "排除其他供应商"]
+    },
+    "tags": ["园区", "多供应商", "边界例"]
+  },
+  {
+    "case_id": "llm_turkey_after_form",
+    "sample_path": "data/samples/turkey_tunnel_ventilation.jsonl",
+    "chatseq": 6,
+    "focus": ["semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true},
+      "message_keywords": [],
+      "explanation_keywords": ["表单"],
+      "forbidden_terms": ["再次发送表单", "重复发送"]
+    },
+    "tags": ["隧道", "已发表单", "负例"]
+  },
+  {
+    "case_id": "llm_saudi_water_form",
+    "sample_path": "data/samples/saudi_water_treatment.jsonl",
+    "chatseq": 5,
+    "focus": ["polish", "semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true, "has_vendor_readiness": true},
+      "message_keywords": ["表单", "水处理"],
+      "explanation_keywords": ["方案"],
+      "forbidden_terms": ["保证达标", "替代正式评审"]
+    },
+    "tags": ["水务", "发表单", "正例"]
+  },
+  {
+    "case_id": "llm_uae_vendor_wait",
+    "sample_path": "data/samples/uae_desalination_power.jsonl",
+    "chatseq": 3,
+    "focus": ["semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_vendor_readiness": false},
+      "message_keywords": [],
+      "explanation_keywords": ["不"],
+      "forbidden_terms": ["立即填写", "建议发送表单"]
+    },
+    "tags": ["水务", "供应方观望", "负例"]
+  },
+  {
+    "case_id": "llm_egypt_port_form",
+    "sample_path": "data/samples/egypt_port_equipment.jsonl",
+    "chatseq": 6,
+    "focus": ["polish", "semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_project_opportunity": true, "has_vendor_readiness": true},
+      "message_keywords": ["表单", "港口设备"],
+      "explanation_keywords": ["资料"],
+      "forbidden_terms": ["保证入围", "承诺采购"]
+    },
+    "tags": ["港口设备", "发表单", "正例"]
+  },
+  {
+    "case_id": "llm_philippines_internal_summary",
+    "sample_path": "data/samples/philippines_bridge_monitoring.jsonl",
+    "chatseq": 3,
+    "focus": ["semantic", "explain"],
+    "expected": {
+      "expected_signals": {"has_vendor_readiness": false},
+      "message_keywords": [],
+      "explanation_keywords": ["内部"],
+      "forbidden_terms": ["建议发送表单", "立即填写"]
+    },
+    "tags": ["桥梁", "内部总结", "负例"]
+  }
+]

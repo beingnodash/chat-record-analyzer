@@ -15,6 +15,12 @@ from chat_record_analyzer.agent import analyze_session
 from chat_record_analyzer.enhancements import explain_decision, extract_semantic_signals
 from chat_record_analyzer.evaluate import DEFAULT_MANIFEST_PATH, evaluate_manifest, render_markdown, result_rows
 from chat_record_analyzer.forms import FormCatalog
+from chat_record_analyzer.llm_evaluate import (
+    DEFAULT_LLM_MANIFEST_PATH,
+    evaluate_llm_manifest,
+    render_markdown as render_llm_markdown,
+    result_rows as llm_result_rows,
+)
 from chat_record_analyzer.models import ChatMessage, Decision
 from chat_record_analyzer.parser import load_messages, messages_until, parse_jsonl
 from chat_record_analyzer.replay import FormCardView, ReplayItem, build_replay_timeline
@@ -29,15 +35,17 @@ def main() -> None:
     st.title("企微群聊 AI 介入决策 POC")
 
     form_catalog = FormCatalog.load()
-    messages, sample_name, show_json, draft_client = _sidebar_inputs()
+    messages, sample_name, show_json, draft_client, enhancement_mode = _sidebar_inputs()
 
-    single_tab, replay_tab, batch_tab = st.tabs(["单点分析", "群聊回放", "批量稳定性报告"])
+    single_tab, replay_tab, batch_tab, llm_tab = st.tabs(["单点分析", "群聊回放", "批量稳定性报告", "LLM 增强复盘"])
     with single_tab:
-        _render_single_analysis(messages, sample_name, form_catalog, draft_client, show_json)
+        _render_single_analysis(messages, sample_name, form_catalog, draft_client, enhancement_mode, show_json)
     with replay_tab:
-        _render_chat_replay(messages, sample_name, form_catalog, draft_client, show_json)
+        _render_chat_replay(messages, sample_name, form_catalog, draft_client, enhancement_mode, show_json)
     with batch_tab:
         _render_batch_report()
+    with llm_tab:
+        _render_llm_report()
 
 
 def _sidebar_inputs():
@@ -62,8 +70,8 @@ def _sidebar_inputs():
         st.sidebar.info(selection.status_message)
 
     if uploaded:
-        return parse_jsonl(uploaded.read().decode("utf-8")), uploaded.name, show_json, selection.client
-    return load_messages(SAMPLE_DIR / selected_sample), selected_sample, show_json, selection.client
+        return parse_jsonl(uploaded.read().decode("utf-8")), uploaded.name, show_json, selection.client, selection.active_mode
+    return load_messages(SAMPLE_DIR / selected_sample), selected_sample, show_json, selection.client, selection.active_mode
 
 
 def _sync_streamlit_secrets() -> None:
@@ -80,6 +88,7 @@ def _render_single_analysis(
     sample_name: str,
     form_catalog: FormCatalog,
     draft_client,
+    enhancement_mode: str,
     show_json: bool,
 ) -> None:
     st.subheader(sample_name)
@@ -94,7 +103,7 @@ def _render_single_analysis(
         for message in visible_messages:
             _render_chat_message(message, form_catalog)
     with right:
-        _render_decision_panel(decision, visible_messages, form_catalog, draft_client, show_json)
+        _render_decision_panel(decision, visible_messages, form_catalog, draft_client, enhancement_mode, show_json)
 
 
 def _render_chat_replay(
@@ -102,6 +111,7 @@ def _render_chat_replay(
     sample_name: str,
     form_catalog: FormCatalog,
     draft_client,
+    enhancement_mode: str,
     show_json: bool,
 ) -> None:
     st.subheader(sample_name)
@@ -124,7 +134,14 @@ def _render_chat_replay(
     with right:
         st.subheader(f"AI 决策｜chatseq {selected_seq}")
         _render_timeline_status(timeline, selected_seq)
-        _render_decision_panel(current.decision, messages_until(messages, selected_seq), form_catalog, draft_client, show_json)
+        _render_decision_panel(
+            current.decision,
+            messages_until(messages, selected_seq),
+            form_catalog,
+            draft_client,
+            enhancement_mode,
+            show_json,
+        )
 
 
 def _render_batch_report() -> None:
@@ -156,6 +173,45 @@ def _render_batch_report() -> None:
     )
 
 
+def _render_llm_report() -> None:
+    st.subheader("Stage 4 LLM 增强复盘")
+    try:
+        report = evaluate_llm_manifest(DEFAULT_LLM_MANIFEST_PATH)
+    except FileNotFoundError as exc:
+        st.warning(f"缺少 LLM 快照：{exc}")
+        return
+    summary = report.summary
+    metric_cols = st.columns(4)
+    metric_cols[0].metric("整体状态", "PASS" if summary.threshold_passed else "FAIL")
+    metric_cols[1].metric("语义信号", f"{summary.semantic_signal_rate:.2%}")
+    metric_cols[2].metric("解释覆盖", f"{summary.explanation_coverage_rate:.2%}")
+    metric_cols[3].metric("话术克制", f"{summary.message_quality_rate:.2%}")
+
+    st.dataframe(llm_result_rows(report), use_container_width=True, hide_index=True)
+    selected = st.selectbox("选择复盘 case", [result.case.case_id for result in report.results])
+    current = next(result for result in report.results if result.case.case_id == selected)
+    left, right = st.columns([1, 1])
+    with left:
+        st.subheader("规则与增强输出")
+        st.write("Fallback 话术")
+        st.text_area("fallback", current.snapshot.get("fallback_message", ""), height=100, label_visibility="collapsed")
+        st.write("LLM/Snapshot 话术")
+        st.text_area("polished", current.snapshot.get("polished_message", ""), height=140, label_visibility="collapsed")
+        st.write("业务解释")
+        st.write(current.snapshot.get("explanation", ""))
+    with right:
+        st.subheader("评分与语义信号")
+        st.json(current.checks)
+        st.json(current.snapshot.get("semantic_signals", {}))
+
+    st.download_button(
+        "下载 LLM Markdown 报告",
+        render_llm_markdown(report),
+        file_name="stage-4-llm-enhancement-report.md",
+        mime="text/markdown",
+    )
+
+
 def _render_chat_message(message: ChatMessage, form_catalog: FormCatalog) -> None:
     label = f"{message.chatseq}｜{message.display_name}｜{message.role}｜{message.timestamp}"
     avatar_type = "assistant" if message.role == "bot" else "user"
@@ -173,9 +229,11 @@ def _render_decision_panel(
     messages: list[ChatMessage],
     form_catalog: FormCatalog,
     draft_client,
+    enhancement_mode: str,
     show_json: bool,
 ) -> None:
     st.metric("是否建议发送", "是" if decision.should_send else "否", f"confidence {decision.confidence:.2f}")
+    st.caption(f"增强来源：{enhancement_mode}")
     st.write(f"动作类型：`{decision.action_type}`")
     st.write(f"判断依据：{decision.rationale}")
     if decision.evidence_chatseqs:

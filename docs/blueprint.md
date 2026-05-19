@@ -13,6 +13,7 @@ POC 采用轻量混合架构：
 - LLM Enhancement Layer：在规则决策之外增强话术、语义信号和业务解释。
 - Prompt Contracts：LLM prompt 必须有明确输入、输出和 fallback，不允许模型自由生成真实表单 URL。
 - Fallback Policy：DeepSeek 失败、超时或输出不可解析时，保留规则决策和 Mock 结果。
+- LLM Snapshot Evaluation：真实 DeepSeek 输出可保存为固定快照，用人工 rubric 做离线复盘。
 - Streamlit UI：展示聊天回放、结构化决策和评分。
 
 ## Stages
@@ -76,3 +77,11 @@ Stage 4 约束：
 - LLM 可增强表达和解释，但不越权决定真实表单 URL。
 - 核心发送决策仍需通过规则、表单 catalog 和批量评估约束。
 - 所有 LLM 能力必须能在无 key 或调用失败时稳定回退。
+
+当前 Stage 4 baseline：
+
+- `.env`、环境变量和 Streamlit Secrets 均可用于 DeepSeek 配置，真实 key 不进入代码库。
+- LLM 受控增强覆盖话术润色、semantic signals 和业务解释。
+- LLM 增强评估集包含 10 个关键复盘点，默认读取固定 DeepSeek 快照。
+- LLM 增强复盘入口：`python -m chat_record_analyzer.llm_evaluate data/llm_evaluation_cases.json --source snapshots --format markdown`。
+- 当前快照 baseline：10/10 通过，语义信号、解释覆盖、话术关键词/克制性均为 100%。

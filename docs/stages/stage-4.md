@@ -20,9 +20,24 @@
 
 增加 LLM 相关测试和评估样本，确认 Stage 2 批量稳定性报告不回退。后续可用产品/干系人语言更新 `status_quo_for_PM.md`。
 
+## LLM 增强复盘
+
+- 新增 `data/llm_evaluation_cases.json`，独立评估话术自然化、复杂语义理解和复盘解释。
+- 新增 `data/llm_snapshots/`，保存真实 DeepSeek 输出快照，默认离线复盘。
+- 新增 CLI：`python -m chat_record_analyzer.llm_evaluate data/llm_evaluation_cases.json --source snapshots --format markdown`。
+- 可用 `--source deepseek --write-snapshots` 显式刷新快照。
+
 ## Stage 4 通过线
 
 - 无 `.env` 或无 key 时仍可稳定使用 Mock。
 - DeepSeek 配置存在时可显式启用。
 - LLM 失败、超时或输出不可解析时不影响规则决策。
 - Stage 2 批量评估仍为 PASS。
+- LLM 增强报告达到通过线：语义信号、解释覆盖、话术关键词/克制性均 >= 80%。
+
+## 当前 baseline
+
+- Stage 2 批量稳定性报告：17/17 PASS。
+- Stage 4 LLM 增强复盘：10/10 PASS。
+- 当前快照指标：语义信号 100%，解释覆盖 100%，话术关键词/克制性 100%。
+- Streamlit 已包含四个视图：单点分析、群聊回放、批量稳定性报告、LLM 增强复盘。

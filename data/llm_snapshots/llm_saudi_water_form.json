@@ -1,0 +1,61 @@
+{
+  "case_id": "llm_saudi_water_form",
+  "source": "deepseek",
+  "generated_at": "2026-05-19T19:06:24.167308+00:00",
+  "sample_path": "data/samples/saudi_water_treatment.jsonl",
+  "chatseq": 5,
+  "input_summary": {
+    "message_count": 5,
+    "last_message": {
+      "session_id": "wxext-saudi-water-001",
+      "chatseq": 5,
+      "timestamp": "2026-05-20T14:11:00+08:00",
+      "user_id": "external-fang",
+      "display_name": "方总",
+      "role": "external_vendor",
+      "org": "北方水处理装备有限公司总经理",
+      "message_type": "text",
+      "content": "好的，我们可以提供资料，今天先整理膜系统参数、泵站设备清单、运维方案和海外案例提交。"
+    }
+  },
+  "fallback_message": "方总，感谢您愿意同步资料。为方便后续整理和跟进，您可以先通过这个表单提交：\n【海外水务项目｜水处理方案信息提交】\n请提交水处理工艺、设备参数、运维能力、海外案例和本地支持范围。\nhttps://example.com/form/water-treatment-solution",
+  "polished_message": "感谢您愿意同步资料。为方便后续整理和跟进，请通过以下表单提交：\n\n【海外水务项目｜水处理方案信息提交】\n请提交水处理工艺、设备参数、运维能力、海外案例和本地支持范围。\nhttps://example.com/form/water-treatment-solution",
+  "decision": {
+    "should_send": true,
+    "action_type": "send_form",
+    "confidence": 0.9,
+    "rubric_scores": {
+      "evidence_strength": 4,
+      "timing": 4,
+      "usefulness": 5,
+      "non_intrusion": 4,
+      "form_fit": 5,
+      "overall": 4.4
+    },
+    "rationale": "外部供应方已明确有相关方案、产品能力和提交资料意愿，适合选择配置表单采集结构化信息。",
+    "evidence_chatseqs": [
+      1,
+      5,
+      4
+    ],
+    "draft_message": "感谢您愿意同步资料。为方便后续整理和跟进，请通过以下表单提交：\n\n【海外水务项目｜水处理方案信息提交】\n请提交水处理工艺、设备参数、运维能力、海外案例和本地支持范围。\nhttps://example.com/form/water-treatment-solution",
+    "form_id": "water-treatment-solution",
+    "form_url": "https://example.com/form/water-treatment-solution"
+  },
+  "semantic_signals": {
+    "has_project_opportunity": true,
+    "has_information_gap": true,
+    "has_vendor_readiness": true,
+    "has_timing_signal": true,
+    "summary": "沙特新城水务配套工程启动，杨总提及膜系统稳定性需求，方总表示可提供方案并计划今日提交资料。",
+    "evidence_chatseqs": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "source": "llm"
+  },
+  "explanation": "基于对话记录，方总在沟通过程中已明确表示可以提供膜系统参数、设备清单、运维方案和海外案例（参考第5条消息），且所涉及内容适合结构化采集，因此AI判断此时推送信息收集表，可帮助后续高效整理和跟进，避免重复沟通。"
+}
