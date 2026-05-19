@@ -32,9 +32,15 @@ PYTHONPATH=src python3 -m chat_record_analyzer.llm_evaluate data/llm_evaluation_
 
 ## DeepSeek 与 `.env`
 
-本地开发可在项目根目录创建 `.env`：
+本地开发可复制示例文件：
 
 ```bash
+cp .env.example .env
+```
+
+然后在 `.env` 中填入真实值：
+
+```dotenv
 DEEPSEEK_API_KEY=...
 DEEPSEEK_MODEL=deepseek-chat
 ```
