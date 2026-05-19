@@ -1,0 +1,121 @@
+[
+  {
+    "case_id": "thailand_pre_vendor_question",
+    "sample_path": "data/samples/thailand_port_lighting.jsonl",
+    "chatseq": 3,
+    "expected": {"should_send": false, "action_type": "none", "form_id": null, "message_keywords": []},
+    "tags": ["港口", "负例", "供应方询问"]
+  },
+  {
+    "case_id": "thailand_owner_timeline_ask_info",
+    "sample_path": "data/samples/thailand_port_lighting.jsonl",
+    "chatseq": 4,
+    "expected": {"should_send": true, "action_type": "ask_for_info", "form_id": null, "message_keywords": ["解决方案", "项目案例"]},
+    "tags": ["港口", "正例", "轻量引导"]
+  },
+  {
+    "case_id": "thailand_vendor_ready_send_form",
+    "sample_path": "data/samples/thailand_port_lighting.jsonl",
+    "chatseq": 6,
+    "expected": {"should_send": true, "action_type": "send_form", "form_id": "thailand-port-lighting", "message_keywords": ["表单", "照明"]},
+    "tags": ["港口", "正例", "发表单"]
+  },
+  {
+    "case_id": "thailand_after_form_no_repeat",
+    "sample_path": "data/samples/thailand_port_lighting.jsonl",
+    "chatseq": 10,
+    "expected": {"should_send": false, "action_type": "none", "form_id": null, "message_keywords": []},
+    "tags": ["港口", "负例", "已发表单"]
+  },
+  {
+    "case_id": "indonesia_vendor_offer_ask_info",
+    "sample_path": "data/samples/indonesia_rail_signal.jsonl",
+    "chatseq": 3,
+    "expected": {"should_send": true, "action_type": "ask_for_info", "form_id": null, "message_keywords": ["解决方案", "项目案例"]},
+    "tags": ["铁路", "正例", "供应方主动提供"]
+  },
+  {
+    "case_id": "vietnam_low_signal_no_send",
+    "sample_path": "data/samples/vietnam_port_equipment.jsonl",
+    "chatseq": 2,
+    "expected": {"should_send": false, "action_type": "none", "form_id": null, "message_keywords": []},
+    "tags": ["港口", "负例", "信息不足"]
+  },
+  {
+    "case_id": "malaysia_owner_timeline_ask_info",
+    "sample_path": "data/samples/malaysia_solar_storage.jsonl",
+    "chatseq": 4,
+    "expected": {"should_send": true, "action_type": "ask_for_info", "form_id": null, "message_keywords": ["解决方案", "项目案例"]},
+    "tags": ["能源", "正例", "轻量引导"]
+  },
+  {
+    "case_id": "malaysia_vendor_ready_send_form",
+    "sample_path": "data/samples/malaysia_solar_storage.jsonl",
+    "chatseq": 6,
+    "expected": {"should_send": true, "action_type": "send_form", "form_id": "power-energy-solution", "message_keywords": ["表单", "储能"]},
+    "tags": ["能源", "正例", "发表单"]
+  },
+  {
+    "case_id": "saudi_vendor_ready_send_form",
+    "sample_path": "data/samples/saudi_water_treatment.jsonl",
+    "chatseq": 5,
+    "expected": {"should_send": true, "action_type": "send_form", "form_id": "water-treatment-solution", "message_keywords": ["表单", "水处理"]},
+    "tags": ["水务", "正例", "发表单"]
+  },
+  {
+    "case_id": "kenya_vendor_ready_send_form",
+    "sample_path": "data/samples/kenya_logistics_park.jsonl",
+    "chatseq": 5,
+    "expected": {"should_send": true, "action_type": "send_form", "form_id": "logistics-park-solution", "message_keywords": ["表单", "物流"]},
+    "tags": ["物流", "正例", "发表单"]
+  },
+  {
+    "case_id": "uae_vendor_wait_no_send",
+    "sample_path": "data/samples/uae_desalination_power.jsonl",
+    "chatseq": 3,
+    "expected": {"should_send": false, "action_type": "none", "form_id": null, "message_keywords": []},
+    "tags": ["水务", "负例", "供应方观望"]
+  },
+  {
+    "case_id": "philippines_internal_summary_no_send",
+    "sample_path": "data/samples/philippines_bridge_monitoring.jsonl",
+    "chatseq": 3,
+    "expected": {"should_send": false, "action_type": "none", "form_id": null, "message_keywords": []},
+    "tags": ["桥梁", "负例", "内部用户"]
+  },
+  {
+    "case_id": "egypt_owner_timeline_ask_info",
+    "sample_path": "data/samples/egypt_port_equipment.jsonl",
+    "chatseq": 4,
+    "expected": {"should_send": true, "action_type": "ask_for_info", "form_id": null, "message_keywords": ["解决方案", "项目案例"]},
+    "tags": ["港口", "正例", "轻量引导"]
+  },
+  {
+    "case_id": "egypt_vendor_ready_send_form",
+    "sample_path": "data/samples/egypt_port_equipment.jsonl",
+    "chatseq": 6,
+    "expected": {"should_send": true, "action_type": "send_form", "form_id": "port-equipment-supplier", "message_keywords": ["表单", "港口设备"]},
+    "tags": ["港口", "正例", "发表单"]
+  },
+  {
+    "case_id": "morocco_multi_vendor_ask_info",
+    "sample_path": "data/samples/morocco_industrial_park.jsonl",
+    "chatseq": 5,
+    "expected": {"should_send": true, "action_type": "ask_for_info", "form_id": null, "message_keywords": ["解决方案", "项目案例"]},
+    "tags": ["园区", "边界例", "多供应商"]
+  },
+  {
+    "case_id": "chile_vendor_ready_send_form",
+    "sample_path": "data/samples/chile_mining_port_logistics.jsonl",
+    "chatseq": 5,
+    "expected": {"should_send": true, "action_type": "send_form", "form_id": "logistics-park-solution", "message_keywords": ["表单", "物流"]},
+    "tags": ["物流", "正例", "发表单"]
+  },
+  {
+    "case_id": "turkey_after_form_no_repeat",
+    "sample_path": "data/samples/turkey_tunnel_ventilation.jsonl",
+    "chatseq": 6,
+    "expected": {"should_send": false, "action_type": "none", "form_id": null, "message_keywords": []},
+    "tags": ["隧道", "负例", "已发表单"]
+  }
+]

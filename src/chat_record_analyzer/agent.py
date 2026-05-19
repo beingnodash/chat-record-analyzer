@@ -8,8 +8,25 @@ from .models import ChatMessage, Decision, FormDefinition
 from .rubric import evaluate_rubric
 
 
-PROJECT_KEYWORDS = ["项目", "港口", "码头", "堆场", "总包", "分包", "拆包", "业主", "海外", "工程", "基建"]
-NEED_KEYWORDS = ["需求", "方案", "清单", "参数", "案例", "支持范围", "产品", "技术", "测算"]
+PROJECT_KEYWORDS = [
+    "项目",
+    "港口",
+    "码头",
+    "堆场",
+    "总包",
+    "分包",
+    "拆包",
+    "业主",
+    "海外",
+    "工程",
+    "基建",
+    "园区",
+    "铁路",
+    "水务",
+    "电网",
+    "物流",
+]
+NEED_KEYWORDS = ["需求", "方案", "清单", "参数", "案例", "支持范围", "产品", "技术", "测算", "接口", "认证", "交付"]
 VENDOR_CAPABILITY_KEYWORDS = [
     "方案",
     "产品",
@@ -21,9 +38,21 @@ VENDOR_CAPABILITY_KEYWORDS = [
     "供应",
     "调试",
     "团队",
+    "系统",
+    "设备",
+    "运维",
+    "接口",
+    "认证",
+    "交付",
+    "数字化",
+    "WMS",
+    "储能",
+    "并网",
+    "水处理",
+    "膜系统",
 ]
-READINESS_KEYWORDS = ["整理", "提交", "发给", "提供", "更新", "资料", "可以先"]
-TIMELINE_KEYWORDS = ["启动会", "7月", "后续", "阶段", "明确", "讨论", "推进", "跟进"]
+READINESS_KEYWORDS = ["整理", "提交", "发给", "提供", "更新", "资料", "可以先", "安排", "今天"]
+TIMELINE_KEYWORDS = ["启动会", "7月", "下周", "下个月", "后续", "阶段", "明确", "讨论", "推进", "跟进", "技术会", "专题会"]
 FORM_MARKERS = ["表单", "立即填写", "https://example.com/form"]
 
 
@@ -109,6 +138,25 @@ def analyze_session(
             draft_message=draft,
         )
 
+    if _should_ask_vendor_for_info(last, signals):
+        evidence = _compact_evidence([signals.project_seq, signals.vendor_interest_seq, signals.owner_timeline_seq])
+        fallback = (
+            f"{last.display_name}，您这边方便的话，可以先把相关解决方案、产品清单和海外项目案例提交给我们。"
+            "我们会先协助梳理能力点，后续结合项目边界继续跟进。"
+        )
+        prompt = f"请把这段企业微信群聊介入话术润色得更自然，但保持克制和业务导向：{fallback}"
+        draft = client.polish(prompt, fallback)
+        rubric = evaluate_rubric(messages, should_send=True, action_type="ask_for_info", evidence_chatseqs=evidence)
+        return Decision(
+            should_send=True,
+            action_type="ask_for_info",
+            confidence=0.8,
+            rubric_scores=rubric,
+            rationale="供应方已明确表达可提供方案或案例，且会话中存在项目机会，适合轻量引导其补充资料。",
+            evidence_chatseqs=evidence,
+            draft_message=draft,
+        )
+
     return _no_send(messages, "未同时看到明确项目机会、供应方能力表达和可采集的信息缺口。")
 
 
@@ -132,7 +180,14 @@ def _extract_signals(messages: list[ChatMessage]) -> Signals:
             vendor_readiness_seq = message.chatseq
         if message.role == "external_owner" and _contains_any(content, TIMELINE_KEYWORDS):
             owner_timeline_seq = message.chatseq
-        if message.role == "bot" and _contains_any(content, ["产品清单", "项目案例", "提交给我们", "解决方案"]):
+        if (
+            message.role == "bot"
+            and message.message_type == "text"
+            and _contains_any(
+                content,
+                ["产品清单", "项目案例", "提交给我们", "解决方案", "设备清单", "海外案例", "支持范围", "接口清单", "提交"],
+            )
+        ):
             bot_info_request_seq = message.chatseq
         if message.role == "bot" and _contains_any(content, FORM_MARKERS):
             form_sent_seq = message.chatseq
@@ -164,6 +219,17 @@ def _should_ask_for_info(last: ChatMessage, signals: Signals) -> bool:
         and signals.project_seq is not None
         and signals.vendor_interest_seq is not None
         and signals.owner_timeline_seq == last.chatseq
+    )
+
+
+def _should_ask_vendor_for_info(last: ChatMessage, signals: Signals) -> bool:
+    return (
+        last.role == "external_vendor"
+        and signals.project_seq is not None
+        and signals.vendor_interest_seq == last.chatseq
+        and signals.bot_info_request_seq is None
+        and signals.form_sent_seq is None
+        and _contains_any(last.content, ["可以提供", "整理案例", "提供方案", "提交", "资料", "案例"])
     )
 
 

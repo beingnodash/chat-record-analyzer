@@ -15,6 +15,7 @@
 uv sync --extra dev
 uv run python -m unittest discover -s tests
 uv run chat-record-analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6
+uv run python -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
 uv run streamlit run app/streamlit_app.py
 ```
 
@@ -23,6 +24,7 @@ uv run streamlit run app/streamlit_app.py
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests
 PYTHONPATH=src python3 -m chat_record_analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6
+PYTHONPATH=src python3 -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
 ```
 
 ## Canonical 输入格式
@@ -39,5 +41,6 @@ POC 使用 JSONL 作为 append-only 存档文本。每行是一条消息，包�
 - `src/chat_record_analyzer/`：解析、决策、表单选择、rubric 评估、CLI
 - `data/forms.json`：表单 catalog
 - `data/samples/`：多主题样本
+- `data/evaluation_cases.json`：批量评估 manifest
 - `docs/`：Concepts、PRD、Blueprint、Implementation Stages
 - `tests/`：TDD 风格核心回归测试

@@ -33,6 +33,13 @@ POC 采用轻量混合架构：
 4. 批量评估报告。
 5. 回归阈值和失败样本复盘。
 
+当前 Stage 2 baseline：
+
+- 12 个海外基建场景。
+- 17 个 manifest 评估点。
+- 批量评估入口：`python -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown`。
+- 通过线：总体准确率 >= 80%，正例召回 >= 80%，误触发率 <= 20%。
+
 ### Stage 3: 低保真群聊回放
 
 最多 5 个 tranches：

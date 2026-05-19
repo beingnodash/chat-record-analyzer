@@ -34,11 +34,18 @@
 - Streamlit UI
 - 单元测试
 
-下一阶段重点是 Stage 2：
+当前 Stage 2 baseline 已建立：
 
-- 增加多主题、多长度、多角色样本
-- 建立批量评估报告
-- 复盘触发质量和稳定性
+- 12 个海外基建样本
+- 17 个批量评估点
+- Streamlit 批量稳定性报告
+- CLI/模块化批量评估入口
+
+下一阶段重点是 Stage 3：
+
+- 低保真群聊回放
+- 每个 `chatseq` 的决策时间线
+- 表单卡片样式预览
 
 ## 工程约束
 
@@ -54,6 +61,6 @@
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests
 PYTHONPATH=src python3 -m chat_record_analyzer data/samples/thailand_port_lighting.jsonl --chatseq 6
+PYTHONPATH=src python3 -m chat_record_analyzer.evaluate data/evaluation_cases.json --format markdown
 uv run streamlit run app/streamlit_app.py
 ```
-

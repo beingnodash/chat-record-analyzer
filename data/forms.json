@@ -11,7 +11,7 @@
     "title": "海外基建项目｜方案与案例信息提交",
     "url": "https://example.com/form/overseas-infra-solution",
     "description": "请提交企业能力、项目案例、产品或服务范围、交付经验及联系人。",
-    "keywords": ["海外", "基建", "项目", "方案", "案例", "总包", "分包"]
+    "keywords": ["基建", "总包", "分包", "施工", "机电", "隧道", "桥梁"]
   },
   {
     "form_id": "port-equipment-supplier",
@@ -19,5 +19,33 @@
     "url": "https://example.com/form/port-equipment-supplier",
     "description": "请提交港口设备品类、技术参数、海外认证、交付周期和案例。",
     "keywords": ["港口", "设备", "堆场", "岸桥", "配套", "供应"]
+  },
+  {
+    "form_id": "rail-signal-solution",
+    "title": "海外轨道项目｜信号系统方案信息提交",
+    "url": "https://example.com/form/rail-signal-solution",
+    "description": "请提交信号系统能力、兼容方案、海外案例、现场调试资源和交付计划。",
+    "keywords": ["铁路", "轨道", "信号", "联锁", "通信接口", "调试", "兼容"]
+  },
+  {
+    "form_id": "power-energy-solution",
+    "title": "海外能源项目｜电力与储能方案信息提交",
+    "url": "https://example.com/form/power-energy-solution",
+    "description": "请提交电力设备、储能系统、并网能力、海外认证、案例和交付周期。",
+    "keywords": ["电力", "储能", "变电站", "并网", "光伏", "电网", "能源"]
+  },
+  {
+    "form_id": "water-treatment-solution",
+    "title": "海外水务项目｜水处理方案信息提交",
+    "url": "https://example.com/form/water-treatment-solution",
+    "description": "请提交水处理工艺、设备参数、运维能力、海外案例和本地支持范围。",
+    "keywords": ["水务", "水处理", "污水", "海水淡化", "膜系统", "泵站", "运维"]
+  },
+  {
+    "form_id": "logistics-park-solution",
+    "title": "海外园区物流项目｜数字化方案信息提交",
+    "url": "https://example.com/form/logistics-park-solution",
+    "description": "请提交仓储物流系统、园区数字化、案例、接口能力和实施团队信息。",
+    "keywords": ["园区", "物流", "仓储", "调度", "数字化", "WMS", "车队"]
   }
 ]
